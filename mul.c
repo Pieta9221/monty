@@ -26,7 +26,7 @@ void _mul(stack_t **stack, unsigned int num_line)
 	}
 	else
 	{
-		dprintf (2, "L%u: can't mul, stack too short\n", num_line);
+		dprintf(2, "L%u: can't mul, stack too short\n", num_line);
 		free(global.line);
 		fclose(global.fil);
 		free_l(stack);

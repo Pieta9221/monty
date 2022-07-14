@@ -28,6 +28,8 @@ FILE *fil;
 } globals_t;
 
 extern globals_t global;
+
+globals_t global;
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
  * @n: integer

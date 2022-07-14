@@ -7,7 +7,7 @@
  */
 void _error(stack_t **stack, unsigned int n)
 {
-	dprintf (2, "L%u: unknown instruction %s\n", n, global.line);
+	dprintf(2, "L%u: unknown instruction %s\n", n, global.line);
 	free(global.line);
 	fclose(global.fil);
 	free_l(stack);
