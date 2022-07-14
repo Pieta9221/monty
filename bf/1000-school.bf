@@ -1,6 +1,6 @@
 [
 	This program prints "School" and a new line
-	S - 83, c - 99, h - 104, o - 111, o - 111, l - 108 
+	S - 83, c - 99, h - 104, o - 111, o - 111, l - 108
 ]
 
 ++++++++							Add 8 to cell #0
@@ -27,7 +27,7 @@
 
 The result of this is
 #:  0  1   2   3   4     5    6    7  8
-x:  0  0  88  96  104  112  112  104  8 
+x:  0  0  88  96  104  112  112  104  8
 
 >>-----.
 >+++.
