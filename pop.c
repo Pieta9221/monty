@@ -12,7 +12,7 @@ void _pop(stack_t **stack, unsigned int num_line)
 	temp = *stack;
 	if (temp == NULL)
 	{
-		dprintf (2, "L%d: can't pop an empty stack\n", num_line);
+		dprintf(2, "L%d: can't pop an empty stack\n", num_line);
 		free(global.line);
 		fclose(global.fil);
 		free_l(stack);
