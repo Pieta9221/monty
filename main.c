@@ -1,5 +1,5 @@
 #include "monty.h"
-
+globals_t global;
 /**
  * main - main function
  * @argc: number of the arguments
