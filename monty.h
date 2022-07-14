@@ -1,17 +1,33 @@
 #ifndef MONTY_H
 #define MONTY_H
 
-#define STDERR 2
-#define DELIMS "\n \t\r"
-
-
-
-#include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
 #include <string.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <unistd.h>
+/**
+ * struct globals - variables globales
+ * @num: integer
+ * @flag: integer
+ * @line: string
+ * @token: string
+ * @opcod: function opcode in Monty
+ * @fil: file
+ */
+typedef struct globals
+{
+int num;
+int flag;
+char *line;
+char *token;
+char *opco;
+FILE *fil;
+} globals_t;
 
+extern globals_t global;
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
  * @n: integer
@@ -23,9 +39,9 @@
  */
 typedef struct stack_s
 {
-	int n;
-	struct stack_s *prev;
-	struct stack_s *next;
+int n;
+struct stack_s *prev;
+struct stack_s *next;
 } stack_t;
 
 /**
@@ -38,58 +54,34 @@ typedef struct stack_s
  */
 typedef struct instruction_s
 {
-	char *opcode;
-	void (*f)(stack_t **stack, unsigned int line_number);
+char *opcode;
+void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
-/**
- * struct glob_s - globally useful variables, all rolled into one
- * @top: double pointer to top of stack
- * @ops: double pointer to an instruction struct
-**/
-typedef struct glob_s
-{
-	stack_t **top;
-	instruction_t **ops;
-} glob_t;
+void _mod(stack_t **stack, unsigned int num_line);
+void _pchar(stack_t **stack, unsigned int num_line);
+void _rotr(stack_t **stack, unsigned int num_line);
+void _rotl(stack_t **stack, unsigned int num_line);
+void _stack(stack_t **stack, unsigned int num_line);
+void _queue(stack_t **stack, unsigned int num_line);
+void _pstr(stack_t **stack, unsigned int num_line);
+void _mul(stack_t **stack, unsigned int num_line);
+void _verify2(stack_t **stack, unsigned int n);
+void _error(stack_t **stack, unsigned int n);
+void free_l(stack_t **stack);
+void _div(stack_t **stack, unsigned int num_line);
+void _sub(stack_t **stack, unsigned int num_line);
+void _nop(stack_t **stack, unsigned int num_line);
+int _verify1(char *num);
+int _size_line(char *line);
+char delete_jump(char *line);
+void _swap(stack_t **stack, __attribute__((unused)) unsigned int num_line);
+void _add(stack_t **stack, __attribute__((unused)) unsigned int num_line);
+void _pint(stack_t **stack, unsigned int num_line);
+void _pop(stack_t **stack, unsigned int num_line);
+void (*func(char *tokens))(stack_t **stack, unsigned int num_line);
+int main(__attribute__((unused)) int argc, char **argv);
+void _pall(stack_t **stack, unsigned int num_line);
+void _push(stack_t **stack, unsigned int num_line);
 
-extern glob_t glob;
-
-extern stack_t *stack;
-
-
-
-/* instructions.c */
-void push(stack_t **stack, unsigned int line_cnt);
-void pall(stack_t **stack, unsigned int line_cnt);
-void pint(stack_t **stack, unsigned int line_cnt);
-void swap(stack_t **stack, unsigned int line_cnt);
-void pop(stack_t **stack, unsigned int line_cnt);
-
-
-void nop(stack_t **stack, unsigned int line_cnt);
-void _div(stack_t **stack, unsigned int line_cnt);
-void _add(stack_t **stack, unsigned int line_cnt);
-void _sub(stack_t **stack, unsigned int line_cnt);
-void _mul(stack_t **stack, unsigned int line_cnt);
-void mod(stack_t **stack, unsigned int line_cnt);
-void pchar(stack_t **stack, unsigned int line_cnt);
-void pstr(stack_t **stack, unsigned int line_cnt);
-void rotl(stack_t **stack, unsigned int line_count);
-void rotr(stack_t **stack, unsigned int line_count);
-void opcode(stack_t **stack, char *str, unsigned int line_cnt);
-
-/* main.c */
-void process_str(stack_t **stack, char *tok, unsigned int line_number);
-int main(int argc, char *argv[]);
-
-
-int is_digit(char *string);
-int isnumber(char *str);
-
-stack_t *add_node(stack_t **stack, const int n);
-stack_t *queue_node(stack_t **stack, const int n);
-void free_stack(stack_t *stack);
-size_t print_stack(const stack_t *stack);
-
-#endif /* MONTY_H */
+#endif

@@ -1,6 +1,16 @@
 #include "monty.h"
 
+globals_t global;
 
+// /**
+//  * stack_init - initialize all the things
+//  * @head: top of stack data structure
+//  **/
+// void stack_init(stack_t **head)
+// {
+// 	*head = NULL;
+// 	glob.top = head;
+// }
 
 /**
  * process_str - it process the input file
@@ -16,6 +26,7 @@ void process_str(stack_t **stack, char *tok, unsigned int line_number)
 		{"push", push},
 		{"pint", pint},
 		{"pop", pop},
+		{"swap", swap},
 		{NULL, NULL}
 	};
 
@@ -46,8 +57,7 @@ void process_str(stack_t **stack, char *tok, unsigned int line_number)
  */
 int main(int argc, char *argv[])
 {
-	FILE *fp;
-	char *tok, *line = NULL;
+	global.line = NULL;
 	size_t len = 0;
 	ssize_t read = 0;
 	int line_number = 1;
@@ -55,22 +65,24 @@ int main(int argc, char *argv[])
 
 	if (argc != 2)
 	{
-		write(STDERR, "USAGE: monty file\n", 18);
+		dprintf(STDERR, "USAGE: monty file\n");
 		exit(EXIT_FAILURE);
 	}
-	fp = fopen(argv[1], "r");
-	if (fp == NULL)
+	global.file = fopen(argv[1], "r");
+	if (global.file == NULL)
 	{
-		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
+		dprintf(STDERR, "Error: Can't open file %s\n", argv[1]);
 		exit(EXIT_FAILURE);
 	}
 
-	while ((read = getline(&line, &len, fp)) != -1)
+	while ((read = getline(&global.line, &len, global.file)) != -1)
 	{
-		tok = strtok(line, DELIMS);
-		process_str(&stack, tok, line_number);
+		global.token = strtok(global.line, DELIMS);
+		process_str(&stack, global.token, line_number);
 		line_number++;
 	}
-
+	free_l(&stack);
+	free(global.line);
+	fclose(global.file);
 	return (0);
 }

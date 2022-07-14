@@ -11,6 +11,8 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
+#include <errno.h>
+#include <limits.h>
 
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
@@ -42,7 +44,23 @@ typedef struct instruction_s
 	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
-extern stack_t *stack;
+/**
+ * struct glob_s - globally useful variables, all rolled into one
+ * @top: double pointer to top of stack
+ * @ops: double pointer to an instruction struct
+**/
+typedef struct globals
+{
+int num;
+stack_t *stack;
+char *line;
+char *token;
+char *opco;
+FILE *file;
+} globals_t;
+
+extern globals_t global;
+
 
 
 
@@ -53,30 +71,14 @@ void pint(stack_t **stack, unsigned int line_cnt);
 void swap(stack_t **stack, unsigned int line_cnt);
 void pop(stack_t **stack, unsigned int line_cnt);
 
-
-void nop(stack_t **stack, unsigned int line_cnt);
-void _div(stack_t **stack, unsigned int line_cnt);
-void _add(stack_t **stack, unsigned int line_cnt);
-void _sub(stack_t **stack, unsigned int line_cnt);
-void _mul(stack_t **stack, unsigned int line_cnt);
-void mod(stack_t **stack, unsigned int line_cnt);
-void pchar(stack_t **stack, unsigned int line_cnt);
-void pstr(stack_t **stack, unsigned int line_cnt);
-void rotl(stack_t **stack, unsigned int line_count);
-void rotr(stack_t **stack, unsigned int line_count);
-void opcode(stack_t **stack, char *str, unsigned int line_cnt);
+/* _strtol.c */
+int _strtol(char *num_string, unsigned int line_number);
 
 /* main.c */
 void process_str(stack_t **stack, char *tok, unsigned int line_number);
 int main(int argc, char *argv[]);
 
-
-int is_digit(char *string);
-int isnumber(char *str);
-
-stack_t *add_node(stack_t **stack, const int n);
-stack_t *queue_node(stack_t **stack, const int n);
-void free_stack(stack_t *stack);
-size_t print_stack(const stack_t *stack);
+/* helper.c*/
+void free_l(stack_t **stack);
 
 #endif /* MONTY_H */
