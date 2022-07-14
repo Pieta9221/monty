@@ -26,6 +26,7 @@ void process_str(stack_t **stack, char *tok, unsigned int line_number)
 		{"push", push},
 		{"pint", pint},
 		{"pop", pop},
+		{"swap", swap},
 		{NULL, NULL}
 	};
 
@@ -65,7 +66,7 @@ int main(int argc, char *argv[])
 
 	if (argc != 2)
 	{
-		write(STDERR, "USAGE: monty file\n", 18);
+		fprintf(stderr, "USAGE: monty file\n");
 		exit(EXIT_FAILURE);
 	}
 	fp = fopen(argv[1], "r");
