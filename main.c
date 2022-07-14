@@ -8,7 +8,6 @@
  */
 int main(int argc, char **argv)
 {
-	globals_t global;
 	stack_t *stack = NULL;
 	size_t numbytes = 0;
 	int bytesr = 0;
