@@ -22,6 +22,7 @@ void _sub(stack_t **stack, unsigned int num_line)
 		free(temp1);
 		(*stack)->n = rest;
 	}
+	
 	else
 	{
 		dprintf (2, "L%u: can't sub, stack too short\n", num_line);
