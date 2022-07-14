@@ -12,19 +12,18 @@ void push(stack_t **stack, unsigned int line_number)
 	int num;
 	char *tok;
 
+	if (newnode == NULL)
+	{
+		fprintf(stderr, "Error: malloc failed\n");
+		exit(EXIT_FAILURE);
+	}
 	tok = strtok(NULL, DELIMS);
 	if (tok == NULL || stack == NULL)
 	{
-		fprintf(stderr, "L%i: usage: push integer\n", line_number);
+		fprintf(stderr, "L%u: usage: push integer\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 	num = atoi(tok);
-
-	if (newnode == NULL)
-	{
-		write(STDERR, "Error: malloc failed\n", 21);
-		exit(EXIT_FAILURE);
-	}
 
 	newnode->n = num;
 	newnode->prev = NULL;
@@ -50,7 +49,7 @@ void pall(stack_t **stack, unsigned int line_number __attribute__((unused)))
 
 	while (str != NULL)
 	{
-		printf("%i\n", str->n);
+		printf("%d\n", str->n);
 		str = str->next;
 	}
 	free(str);
@@ -64,13 +63,12 @@ void pall(stack_t **stack, unsigned int line_number __attribute__((unused)))
  */
 void pint(stack_t **stack, unsigned int line_number)
 {
-	if (*stack != NULL)
-		printf("%i\n", (*stack)->n);
-	else
+	if (stack == NULL || *stack == NULL)
 	{
-		fprintf(stderr, "L%i: can't pint, stack empty\n", line_number);
+		fprintf(stderr, "L%u: can't pint, stack empty\n", line_number);
 		exit(EXIT_FAILURE);
 	}
+	printf("%d\n", (*stack)->n);
 }
 
 /**
@@ -85,7 +83,7 @@ void pop(stack_t **stack, unsigned int line_number)
 
 	if (*stack == NULL)
 	{
-		fprintf(stderr, "L%i: can't pop an empty stack\n", line_number);
+		fprintf(stderr, "L%u: can't pop an empty stack\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 	(*stack) = (*stack)->next;
@@ -105,7 +103,7 @@ void swap(stack_t **stack, unsigned int line_number)
 
 	if (!(*stack) || !((*stack)->next))
 	{
-		fprintf(stderr, "L%i: can't swap, stack too short\n", line_number);
+		fprintf(stderr, "L%u: can't swap, stack too short\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 
