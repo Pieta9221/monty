@@ -16,7 +16,7 @@ void _mod(stack_t **stack, unsigned int num_line)
 	{
 		if ((*stack)->n == 0)
 		{
-			dprintf (2, "L%u: division by zero\n", num_line);
+			dprintf(2, "L%u: division by zero\n", num_line);
 			free(global.line);
 			fclose(global.fil);
 			free_l(stack);
@@ -33,7 +33,7 @@ void _mod(stack_t **stack, unsigned int num_line)
 	}
 	else
 	{
-		dprintf (2, "L%d: can't mod, stack too short\n", num_line);
+		dprintf(2, "L%d: can't mod, stack too short\n", num_line);
 		free(global.line);
 		fclose(global.fil);
 		free_l(stack);
