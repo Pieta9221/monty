@@ -13,8 +13,7 @@ void _div(stack_t **stack, unsigned int num_line)
 
 	if (*stack && (*stack)->next)
 	{
-		if ((*stack)->n == 0)
-		{
+		if ((*stack)->n == 0) {
 			dprintf (2, "L%u: division by zero\n", num_line);
 			free(global.line);
 			fclose(global.fil);
@@ -30,8 +29,7 @@ void _div(stack_t **stack, unsigned int num_line)
 		free(temp1);
 		(*stack)->n = divi;
 	}
-	else
-	{
+	else {
 		dprintf (2, "L%u: can't div, stack too short\n", num_line);
 		free(global.line);
 		fclose(global.fil);
