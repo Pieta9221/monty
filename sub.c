@@ -11,7 +11,7 @@ void _sub(stack_t **stack, unsigned int num_line)
 	stack_t *temp2;
 	int rest = 0;
 
-	if (*stack && (*stack)->next) 
+	if (*stack && (*stack)->next)
 	{
 		temp2 = (*stack)->next;
 		rest = temp2->n - (*stack)->n;
@@ -24,7 +24,7 @@ void _sub(stack_t **stack, unsigned int num_line)
 	}
 	else
 	{
-		dprintf (2, "L%u: can't sub, stack too short\n", num_line);
+		dprintf(2, "L%u: can't sub, stack too short\n", num_line);
 		free(global.line);
 		fclose(global.fil);
 		free_l(stack);
