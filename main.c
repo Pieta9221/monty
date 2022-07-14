@@ -1,6 +1,16 @@
 #include "monty.h"
 
+glob_t glob;
 
+/**
+ * stack_init - initialize all the things
+ * @head: top of stack data structure
+ **/
+void stack_init(stack_t **head)
+{
+	*head = NULL;
+	glob.top = head;
+}
 
 /**
  * process_str - it process the input file
@@ -71,6 +81,7 @@ int main(int argc, char *argv[])
 		process_str(&stack, tok, line_number);
 		line_number++;
 	}
-
+	free(line);
+	fclose(fp);
 	return (0);
 }
